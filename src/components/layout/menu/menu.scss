@@ -76,16 +76,22 @@
       flex-wrap: wrap;
     }
 
+    // десктоп: розширюємо hover-зону вниз щоб покрити зазор до dropdown
+    @media (min-width: toEm($tablet + 1)) {
+      padding-bottom: 12px;
+      margin-bottom: -12px;
+    }
+
     // десктоп hover — показує субменю
-    html:not([data-fls-touch]) & {
+    &:hover {
       @media (min-width: toEm($tablet + 1)) {
-        &:hover .menu__sub-list {
+        .menu__sub-list {
           opacity: 1;
           visibility: visible;
           transform: translateY(0);
           pointer-events: auto;
         }
-        &:hover .menu__sub-toggle {
+        .menu__sub-toggle {
           transform: rotate(180deg);
         }
       }
@@ -141,35 +147,35 @@
   &__sub-list {
     list-style: none;
 
-    // десктоп: dropdown
+    // десктоп: dropdown — top:100% щоб hover-зона була неперервною
     @media (min-width: toEm($tablet + 1)) {
       position: absolute;
-      top: calc(100% + 12px);
+      top: 100%;
       left: 0;
-      min-width: 180px;
+      min-width: 200px;
       background-color: rgba(232, 239, 249, 0.97);
       backdrop-filter: blur(10px);
       border-radius: 10px;
       padding: 8px 0;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       transition:
         opacity 0.2s ease,
         transform 0.2s ease,
         visibility 0.2s;
       pointer-events: none;
-      z-index: 10;
+      z-index: 1000;
     }
 
     // мобільний/tablet: розгортається вертикально під батьком
     @media (max-width: toEm($tablet)) {
       display: none;
       flex-direction: column;
-      gap: 20px;
+      gap: 32px;
       width: 100%;
       padding-left: 16px;
-      padding-top: 20px;
+      padding-top: 24px;
     }
   }
 

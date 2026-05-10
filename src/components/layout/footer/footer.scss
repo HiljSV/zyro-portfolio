@@ -132,26 +132,22 @@
     }
   }
 
-  // .footer__copy
+  // .footer__copy — copyright + credit в одному рядку
   &__copy {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    small {
-      font-size: inherit;
+    @media (max-width: toEm($mobile)) {
+      white-space: normal;
     }
   }
 
-  // .footer__credit
-  &__credit {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.02em;
-  }
-
-  // .footer__credit-link
-  &__credit-link {
-    color: rgba(255, 255, 255, 0.55);
+  // .footer__copy-link — посилання в копірайт рядку
+  &__copy-link {
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     transition: color 0.2s ease;
 
