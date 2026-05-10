@@ -7,6 +7,8 @@
   overflow: hidden;
   display: flex;
   align-items: flex-end;
+  // враховуємо safe-area-inset-bottom (home indicator на iOS)
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 
   // на мобільному — стековий layout: img зверху природних пропорцій, контент знизу
   @media (max-width: toEm($mobile)) {
@@ -137,6 +139,24 @@
 
     small {
       font-size: inherit;
+    }
+  }
+
+  // .footer__credit
+  &__credit {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.02em;
+  }
+
+  // .footer__credit-link
+  &__credit-link {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #fff;
     }
   }
 }

@@ -17,7 +17,9 @@
       left: -100%;
       top: 0;
       overflow: auto;
-      padding: 152px 15px 30px 15px;
+      // враховуємо safe-area-inset-top щоб контент drawer не ховався за notch
+      padding: calc(152px + env(safe-area-inset-top, 0px)) 15px
+        calc(30px + env(safe-area-inset-bottom, 0px)) 15px;
       transition: left 0.3s;
 
       &::before {

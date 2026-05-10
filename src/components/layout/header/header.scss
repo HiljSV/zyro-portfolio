@@ -1,6 +1,7 @@
 .header {
   position: fixed;
-  top: 64px;
+  // враховуємо safe-area-inset-top (notch, Dynamic Island)
+  top: max(64px, calc(env(safe-area-inset-top, 0px) + 24px));
   left: 24px;
   right: 0;
   z-index: 50;
@@ -8,7 +9,7 @@
   @media (min-width: toEm($mobile)) {
     display: flex;
     justify-content: center;
-    top: 50px;
+    top: max(50px, calc(env(safe-area-inset-top, 0px) + 24px));
   }
 
   // .header__container
