@@ -5,44 +5,27 @@
 .footer {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  // враховуємо safe-area-inset-bottom (home indicator на iOS)
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 
-  // на мобільному — стековий layout: img зверху природних пропорцій, контент знизу
-  @media (max-width: toEm($mobile)) {
-    display: block;
-  }
-
-  // .footer__img
+  // .footer__img — задає висоту футера природними пропорціями зображення
   &__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
     display: block;
+    width: 100%;
+    height: auto;
     pointer-events: none;
-
-    // на мобільному виходить з потоку — показується повністю в природних пропорціях
-    @media (max-width: toEm($mobile)) {
-      position: static;
-      height: auto;
-      object-fit: unset;
-    }
   }
 
-  // .footer__container — max-width wrapper only
+  // .footer__container — max-width wrapper only; абсолютна overlay знизу на всіх розмірах
   &__container {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
-    width: 100%;
 
-    // на мобільному — темний фон для контентної частини (під зображенням)
-    @media (max-width: toEm($mobile)) {
-      background-color: #0d0d0d;
+    // на малих екранах — два блоки: картинка зверху, контент знизу з темним фоном
+    @media (max-width: toEm(596)) {
+      position: static;
+      background-color: var(--background-color);
     }
   }
 
@@ -53,7 +36,11 @@
     align-items: flex-end;
     @include adaptiveValue("gap", 32, 16);
     @include adaptiveValue("padding-top", 64, 40);
-    @include adaptiveValue("padding-bottom", 64, 40);
+    // safe-area-inset-bottom (home indicator на iOS) + мінімум 40px
+    padding-bottom: max(
+      #{toRem(40)},
+      calc(env(safe-area-inset-bottom, 0px) + #{toRem(24)})
+    );
 
     @media (max-width: toEm($mobile)) {
       align-items: flex-start;
@@ -79,7 +66,7 @@
     @include adaptiveValue("font-size", 64, 36);
     line-height: 1;
     letter-spacing: -2px;
-    color: #fff;
+    color: var(--secondary-color);
   }
 
   // .footer__slogan
@@ -87,7 +74,7 @@
     font-style: italic;
     font-weight: 700;
     @include adaptiveValue("font-size", 18, 14);
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--secondary-color);
     letter-spacing: -0.3px;
   }
 
@@ -115,10 +102,10 @@
   // .footer__nav-link
   &__nav-link {
     font-weight: 700;
-    font-size: 14px;
+    @include adaptiveValue("font-size", 14, 12);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--secondary-color);
     text-decoration: none;
     transition: color 0.2s ease;
 
@@ -134,8 +121,8 @@
 
   // .footer__copy — copyright + credit в одному рядку
   &__copy {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.45);
+    @include adaptiveValue("font-size", 14, 11);
+    color: var(--secondary-color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -153,6 +140,17 @@
 
     &:hover {
       color: #fff;
+    }
+  }
+
+  // після перебудови (≤596px) — всі тексти стають кольором сторінки
+  @media (max-width: toEm(596)) {
+    &__brand-name,
+    &__slogan,
+    &__nav-link,
+    &__copy,
+    &__copy-link {
+      color: var(--main-color);
     }
   }
 }

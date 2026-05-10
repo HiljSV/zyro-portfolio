@@ -8,36 +8,38 @@
 
   // .menu__body — повноекранне мобільне меню
   &__body {
-    background-color: rgba(232, 239, 249, 0.95);
+    background-color: var(--menu-background-color);
 
     @media (max-width: toEm($tablet)) {
       position: fixed;
       width: 100%;
       height: 100svh;
-      left: -100%;
+      left: 0;
       top: 0;
       overflow: auto;
+      transform: translateX(-100%);
       // враховуємо safe-area-inset-top щоб контент drawer не ховався за notch
       padding: calc(152px + env(safe-area-inset-top, 0px)) 15px
         calc(30px + env(safe-area-inset-bottom, 0px)) 15px;
-      transition: left 0.3s;
+      transition: transform 0.3s;
 
       &::before {
         content: "";
         position: fixed;
         width: 100%;
         height: 70px;
-        left: -100%;
+        left: 0;
         top: 0;
-        transition: left 0.3s;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
         z-index: 2;
       }
 
       [data-fls-menu-open] & {
-        left: 0;
+        transform: translateX(0);
 
         &::before {
-          left: 0;
+          transform: translateX(0);
         }
       }
     }
@@ -76,15 +78,23 @@
       flex-wrap: wrap;
     }
 
-    // десктоп: розширюємо hover-зону вниз щоб покрити зазор до dropdown
+    // десктоп: hover тільки на стрілці або самому підменю (через :has)
     @media (min-width: toEm($tablet + 1)) {
-      padding-bottom: 12px;
-      margin-bottom: -12px;
-    }
+      &:has(.menu__sub-toggle:hover),
+      &:has(.menu__sub-list:hover) {
+        .menu__sub-list {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+        .menu__sub-toggle {
+          transform: rotate(180deg);
+        }
+      }
 
-    // десктоп hover — показує субменю
-    &:hover {
-      @media (min-width: toEm($tablet + 1)) {
+      // open-стан через клік на стрілці (десктоп)
+      &.menu__item--open {
         .menu__sub-list {
           opacity: 1;
           visibility: visible;
@@ -99,8 +109,10 @@
 
     // мобільний open-стан (через JS)
     &.menu__item--open {
-      .menu__sub-list {
-        display: flex;
+      @media (max-width: toEm($tablet)) {
+        .menu__sub-list {
+          display: flex;
+        }
       }
       .menu__sub-toggle {
         transform: rotate(180deg);
@@ -147,13 +159,13 @@
   &__sub-list {
     list-style: none;
 
-    // десктоп: dropdown — top:100% щоб hover-зона була неперервною
+    // десктоп: dropdown
     @media (min-width: toEm($tablet + 1)) {
       position: absolute;
       top: 100%;
       left: 0;
       min-width: 200px;
-      background-color: rgba(232, 239, 249, 0.97);
+      background-color: var(--menu-background-color-blur);
       backdrop-filter: blur(10px);
       border-radius: 10px;
       padding: 8px 0;
@@ -166,6 +178,16 @@
         visibility 0.2s;
       pointer-events: none;
       z-index: 1000;
+
+      // bridge: невидима зона між стрілкою і dropdown щоб ховер не переривався
+      &::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 0;
+        right: 0;
+        height: 12px;
+      }
     }
 
     // мобільний/tablet: розгортається вертикально під батьком

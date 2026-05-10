@@ -1,0 +1,166 @@
+/* ================================================================
+   Recommended section + Card component + Button (.btn)
+   ================================================================ */
+
+// ----------------------------------------------------------------
+// Recommended section
+// ----------------------------------------------------------------
+
+.recommended {
+  @include adaptiveValue("padding-top", 80, 40);
+  @include adaptiveValue("padding-bottom", 80, 40);
+  background-color: var(--background-color);
+
+  // .recommended__container — max-width wrapper only
+  &__container {
+  }
+
+  // .recommended__head — centered heading block
+  &__head {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+
+    @media (max-width: toEm($mobile)) {
+      margin-bottom: 32px;
+    }
+  }
+
+  // .recommended__grid — 3-column product grid
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: toEm($tablet)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: toEm($mobile)) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  // .recommended__card — inherits card styles below
+  &__card {
+  }
+
+  // blur сусідів при наведенні — тільки на пристроях з hover
+  @media (hover: hover) {
+    &__grid:has(.card:hover) .card:not(:hover) {
+      filter: blur(3px);
+      opacity: 0.65;
+      transform: scale(0.97);
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// Card component (.card)
+// Used inside .recommended__grid
+// ----------------------------------------------------------------
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  // плавний перехід для scale + blur (і для сусідніх карт)
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease,
+    opacity 0.35s ease;
+
+  // card-level hover: scale вся карта (фото + назва + ціна)
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.04);
+      z-index: 1;
+    }
+  }
+
+  // .card__image-link
+  &__image-link {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+
+  // .card__image
+  &__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+  }
+
+  // .card__body
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+  }
+
+  // .card__title
+  &__title {
+    font-style: italic;
+    font-weight: 800;
+    @include adaptiveValue("font-size", 20, 16);
+    line-height: 1.2;
+    color: var(--main-color);
+  }
+
+  // .card__price
+  &__price {
+    font-weight: 700;
+    @include adaptiveValue("font-size", 18, 15);
+    color: var(--main-color);
+  }
+
+  // .card__btn
+  &__btn {
+    margin-top: auto;
+  }
+}
+
+// ----------------------------------------------------------------
+// Generic button (.btn)
+// Note: forms/button/button.scss is an FLS stub (.button, no styles)
+// so .btn lives here alongside the card that uses it
+// ----------------------------------------------------------------
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 2px solid var(--main-color);
+  background-color: transparent;
+  color: var(--main-color);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: var(--main-color);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: 3px;
+  }
+}

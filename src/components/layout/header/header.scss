@@ -5,8 +5,8 @@
   left: 24px;
   right: 0;
   z-index: 50;
-  // плавне ховання при скролі
-  transition: transform 0.35s ease;
+  // плавне ховання при скролі через top (не transform — щоб не ламати position:fixed дочірніх елементів)
+  transition: top 0.35s ease;
 
   // safe-area override — якщо notch більший за адаптивний top
   @supports (top: env(safe-area-inset-top)) {
@@ -22,8 +22,9 @@
   }
 
   // ховається при скролі вниз (клас додається через JS)
+  // top замість transform — transform створює новий containing block для position:fixed нащадків
   &--hidden {
-    transform: translateY(calc(-100% - #{toRem(80)}));
+    top: #{toRem(-200)};
   }
 
   // .header__container
@@ -43,7 +44,6 @@
     @include adaptiveValue("padding-left", 24, 16);
     @include adaptiveValue("padding-right", 24, 16);
     @include adaptiveValue("border-radius", 20, 8);
-    overflow: hidden;
 
     &:before {
       content: "";
@@ -52,6 +52,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      border-radius: inherit;
       backdrop-filter: blur(10px);
       z-index: 2;
     }

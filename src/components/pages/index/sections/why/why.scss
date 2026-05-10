@@ -1,0 +1,84 @@
+/* ================================================================
+   Why buy direct section
+   ================================================================ */
+
+.why {
+  @include adaptiveValue("padding-top", 80, 40);
+  @include adaptiveValue("padding-bottom", 80, 40);
+  background-color: var(--background-color);
+
+  // .why__container — max-width wrapper only
+  &__container {
+  }
+
+  // .why__inner — two-column layout: heading left, features right
+  &__inner {
+    display: grid;
+    // перша колонка адаптивна — не фіксований px
+    grid-template-columns: minmax(0, 411px) 1fr;
+    @include adaptiveValue("gap", 64, 32);
+    align-items: start;
+
+    @media (max-width: toEm($tablet)) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  // .why__head — left column with blockhead
+  &__head {
+  }
+
+  // .why__list — features list, right column
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  // .why__feature — single feature row
+  &__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    min-width: 0;
+  }
+
+  // .why__feature-number — large ordinal marker
+  &__feature-number {
+    flex-shrink: 0;
+    font-style: italic;
+    font-weight: 800;
+    @include adaptiveValue("font-size", 32, 20);
+    line-height: 1;
+    color: var(--main-color);
+    opacity: 0.15;
+    min-width: 48px;
+  }
+
+  // .why__feature-content — title + text
+  &__feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  // .why__feature-title
+  &__feature-title {
+    font-style: italic;
+    font-weight: 800;
+    @include adaptiveValue("font-size", 20, 16);
+    line-height: 1.2;
+    color: var(--main-color);
+  }
+
+  // .why__feature-text
+  &__feature-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--main-color);
+    opacity: 0.7;
+  }
+}
