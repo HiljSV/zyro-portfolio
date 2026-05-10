@@ -8,21 +8,28 @@
   display: flex;
   align-items: flex-end;
 
-  // на малих екранах задаємо aspect-ratio щоб зображення показувалось повністю
-  @media (max-width: toEm($mobileSmall)) {
-    aspect-ratio: 3 / 4;
+  // на мобільному — стековий layout: img зверху природних пропорцій, контент знизу
+  @media (max-width: toEm($mobile)) {
+    display: block;
   }
 
-  // .footer__img — scales with content, not full-viewport-height
+  // .footer__img
   &__img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left center;
+    object-position: center center;
     display: block;
     pointer-events: none;
+
+    // на мобільному виходить з потоку — показується повністю в природних пропорціях
+    @media (max-width: toEm($mobile)) {
+      position: static;
+      height: auto;
+      object-fit: unset;
+    }
   }
 
   // .footer__container — max-width wrapper only
@@ -30,6 +37,11 @@
     position: relative;
     z-index: 1;
     width: 100%;
+
+    // на мобільному — темний фон для контентної частини (під зображенням)
+    @media (max-width: toEm($mobile)) {
+      background-color: #0d0d0d;
+    }
   }
 
   // .footer__inner — content block pinned to bottom-right area

@@ -58,6 +58,147 @@
 
   // .menu__item
   &__item {
+    // десктоп: відносне позиціонування для dropdown
+    @media (min-width: toEm($tablet + 1)) {
+      position: relative;
+    }
+  }
+
+  // .menu__item--has-sub — item з субменю
+  &__item--has-sub {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    @media (max-width: toEm($tablet)) {
+      flex-wrap: wrap;
+    }
+
+    // десктоп hover — показує субменю
+    html:not([data-fls-touch]) & {
+      @media (min-width: toEm($tablet + 1)) {
+        &:hover .menu__sub-list {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+        &:hover .menu__sub-toggle {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    // мобільний open-стан (через JS)
+    &.menu__item--open {
+      .menu__sub-list {
+        display: flex;
+      }
+      .menu__sub-toggle {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  // .menu__sub-toggle — кнопка-стрілка для розгортання субменю
+  &__sub-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    color: var(--main-color);
+    transition: transform 0.25s ease;
+    z-index: 5;
+    flex-shrink: 0;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg) translate(-2px, -2px);
+    }
+
+    @media (max-width: toEm($tablet)) {
+      width: 32px;
+      height: 32px;
+
+      &::before {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  // .menu__sub-list — список субменю
+  &__sub-list {
+    list-style: none;
+
+    // десктоп: dropdown
+    @media (min-width: toEm($tablet + 1)) {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 180px;
+      background-color: rgba(232, 239, 249, 0.97);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 8px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    // мобільний/tablet: розгортається вертикально під батьком
+    @media (max-width: toEm($tablet)) {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      padding-left: 16px;
+      padding-top: 20px;
+    }
+  }
+
+  // .menu__sub-item
+  &__sub-item {
+  }
+
+  // .menu__sub-link
+  &__sub-link {
+    display: block;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--main-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    @media (min-width: toEm($tablet + 1)) {
+      padding: 8px 20px;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    @media (max-width: toEm($tablet)) {
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
   }
 
   // .menu__link

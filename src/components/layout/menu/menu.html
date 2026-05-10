@@ -1,34 +1,35 @@
 <div class="header__menu menu">
   <nav class="menu__body">
     <ul class="menu__list">
-      <each
-        loop='item in [
-					{"href": "#","ancor": "Home"},
-					{"href": "#recommended","ancor": "Recommended"},
-					{"href": "#categories","ancor": "Categories"},
-					{"href": "#how-to-buy","ancor": "How to buy"}
-				]'
-      >
-        <if condition="'[[active]]' === '[[item.ancor]]'">
-          <li class="menu__item">
-            <a href="[[item.href]]" class="menu__link menu__link--active"
-              >[[item.ancor]]</a
-            >
+      <li class="menu__item">
+        <a href="#" class="menu__link">Home</a>
+      </li>
+      <li class="menu__item">
+        <a href="#recommended" class="menu__link">Recommended</a>
+      </li>
+      <!-- Categories з субменю -->
+      <li class="menu__item menu__item--has-sub">
+        <a href="#categories" class="menu__link">Categories</a>
+        <button
+          class="menu__sub-toggle"
+          aria-expanded="false"
+          aria-label="Toggle categories submenu"
+        ></button>
+        <ul class="menu__sub-list" aria-hidden="true">
+          <li class="menu__sub-item">
+            <a href="#categories" class="menu__sub-link">Headphones</a>
           </li>
-        </if>
-        <else>
-          <li class="menu__item">
-            <a href="[[item.href]]" class="menu__link">[[item.ancor]]</a>
+          <li class="menu__sub-item">
+            <a href="#categories" class="menu__sub-link">Speakers</a>
           </li>
-        </else>
-      </each>
+          <li class="menu__sub-item">
+            <a href="#categories" class="menu__sub-link">Audio Sunglasses</a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu__item">
+        <a href="#how-to-buy" class="menu__link">How to buy</a>
+      </li>
     </ul>
   </nav>
 </div>
-
-<!-- 
-<fetch url="@components/layout/menu/menu.json">
-	<each loop='item in response'>
-	</each>
-</fetch>
--->
