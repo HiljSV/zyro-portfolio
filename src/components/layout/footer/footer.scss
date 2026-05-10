@@ -8,6 +8,11 @@
   display: flex;
   align-items: flex-end;
 
+  // на малих екранах задаємо aspect-ratio щоб зображення показувалось повністю
+  @media (max-width: toEm($mobileSmall)) {
+    aspect-ratio: 3 / 4;
+  }
+
   // .footer__img — scales with content, not full-viewport-height
   &__img {
     position: absolute;

@@ -23,7 +23,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0px 14px 0px;
+    @include adaptiveValue("padding-top", 14, 12);
+    @include adaptiveValue("padding-bottom", 14, 12);
+    @include adaptiveValue("padding-left", 24, 16);
+    @include adaptiveValue("padding-right", 24, 16);
+    @include adaptiveValue("border-radius", 20, 8);
+    overflow: hidden;
 
     &:before {
       content: "";
