@@ -1,15 +1,29 @@
 .header {
   position: fixed;
-  // враховуємо safe-area-inset-top (notch, Dynamic Island)
-  top: max(64px, calc(env(safe-area-inset-top, 0px) + 24px));
+  // адаптивний top: 50px на десктопі → 16px на мобільному, але не до самого краю
+  @include adaptiveValue("top", 50, 16);
   left: 24px;
   right: 0;
   z-index: 50;
+  // плавне ховання при скролі
+  transition: transform 0.35s ease;
+
+  // safe-area override — якщо notch більший за адаптивний top
+  @supports (top: env(safe-area-inset-top)) {
+    top: max(
+      clamp(#{toRem(16)}, 2.95vw - #{toRem(7)}, #{toRem(50)}),
+      calc(env(safe-area-inset-top) + #{toRem(8)})
+    );
+  }
 
   @media (min-width: toEm($mobile)) {
     display: flex;
     justify-content: center;
-    top: max(50px, calc(env(safe-area-inset-top, 0px) + 24px));
+  }
+
+  // ховається при скролі вниз (клас додається через JS)
+  &--hidden {
+    transform: translateY(calc(-100% - #{toRem(80)}));
   }
 
   // .header__container
@@ -43,6 +57,7 @@
     }
     @include adaptiveValue("gap", 32, 15);
     position: relative;
+
     @media (min-width: toEm($mobile)) {
       z-index: 5;
     }
