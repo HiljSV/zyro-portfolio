@@ -1,26 +1,29 @@
 <div class="header__menu menu">
-
-	<nav class="menu__body">
-		<ul class="menu__list">
-			<each loop='item in [
-					{"href": "https://google.com","ancor": "Home"},
-					{"href": "#","ancor": "Recommended"},
-					{"href": "#","ancor": "Categories"},
-					{"href": "#","ancor": "How to buy"}
-				]'>
-				<if condition="'[[active]]' === '[[item.ancor]]'">
-					<li class="menu__item">
-						<a href="[[item.href]]" class="menu__link menu__link--active">[[item.ancor]]</a>
-					</li>
-				</if>
-				<else>
-					<li class="menu__item">
-						<a href="[[item.href]]" class="menu__link">[[item.ancor]]</a>
-					</li>
-				</else>
-			</each>
-		</ul>
-	</nav>
+  <nav class="menu__body">
+    <ul class="menu__list">
+      <each
+        loop='item in [
+					{"href": "#","ancor": "Home"},
+					{"href": "#recommended","ancor": "Recommended"},
+					{"href": "#categories","ancor": "Categories"},
+					{"href": "#how-to-buy","ancor": "How to buy"}
+				]'
+      >
+        <if condition="'[[active]]' === '[[item.ancor]]'">
+          <li class="menu__item">
+            <a href="[[item.href]]" class="menu__link menu__link--active"
+              >[[item.ancor]]</a
+            >
+          </li>
+        </if>
+        <else>
+          <li class="menu__item">
+            <a href="[[item.href]]" class="menu__link">[[item.ancor]]</a>
+          </li>
+        </else>
+      </each>
+    </ul>
+  </nav>
 </div>
 
 <!-- 

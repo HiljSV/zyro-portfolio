@@ -3,14 +3,27 @@
    ================================================================ */
 
 .footer {
-  // Full-height section with women-footer.png as background
-  min-height: 100svh;
-  background: url("@img/footer/women-footer.png") left center / cover no-repeat;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
 
+  // .footer__img — scales with content, not full-viewport-height
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    display: block;
+    pointer-events: none;
+  }
+
   // .footer__container — max-width wrapper only
   &__container {
+    position: relative;
+    z-index: 1;
     width: 100%;
   }
 
@@ -19,15 +32,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 32px;
-    padding-top: 64px;
-    padding-bottom: 64px;
+    @include adaptiveValue("gap", 32, 16);
+    @include adaptiveValue("padding-top", 64, 40);
+    @include adaptiveValue("padding-bottom", 64, 40);
 
     @media (max-width: toEm($mobile)) {
       align-items: flex-start;
-      padding-top: 40px;
-      padding-bottom: 40px;
-      gap: 24px;
     }
   }
 

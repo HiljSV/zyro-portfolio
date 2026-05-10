@@ -1,22 +1,16 @@
+/* Menu component */
+
 .menu {
-  @media (max-width: toEm($mobile)) {
+  // на tablet і менше — hamburger режим
+  @media (max-width: toEm($tablet)) {
     flex-grow: 1;
   }
 
-  // .menu__icon
-  &__icon {
-  }
-
-  // .menu__logo
-
-  &__logo {
-    display: none;
-  }
-
-  // .menu__body
+  // .menu__body — повноекранне мобільне меню
   &__body {
     background-color: rgba(232, 239, 249, 0.95);
-    @media (max-width: toEm($mobile)) {
+
+    @media (max-width: toEm($tablet)) {
       position: fixed;
       width: 100%;
       height: 100svh;
@@ -36,42 +30,49 @@
         transition: left 0.3s;
         z-index: 2;
       }
+
       [data-fls-menu-open] & {
         left: 0;
+
         &::before {
           left: 0;
         }
       }
     }
   }
+
   // .menu__list
   &__list {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     @include adaptiveValue("column-gap", 30, 10);
-    row-gap: 10px;
 
-    @media (max-width: toEm($mobile)) {
+    // на tablet — вертикальне меню в drawer
+    @media (max-width: toEm($tablet)) {
       flex-direction: column;
       align-items: flex-start;
       gap: 40px;
       padding-left: 72px;
     }
   }
+
   // .menu__item
   &__item {
   }
+
   // .menu__link
   &__link {
     z-index: 5;
     font-family: var(--font-family);
     font-weight: 700;
-    font-size: 22px;
+    // adaptiveValue: великий на desktop, менший на mobile
+    @include adaptiveValue("font-size", 18, 16);
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--main-color);
     position: relative;
+
+    // underline hover-ефект
     &::after {
       content: "";
       width: 0;
@@ -87,43 +88,47 @@
 
     html:not([data-fls-touch]) & {
       @media (any-hover: hover), (pointer: fine) {
-        &:hover {
-          &::after {
-            width: 100%;
-            left: 0;
-          }
+        &:hover::after {
+          width: 100%;
+          left: 0;
         }
       }
     }
-    @media (max-width: toEm($mobile)) {
+
+    // більший шрифт у відкритому drawer
+    @media (max-width: toEm($tablet)) {
       font-size: 24px;
     }
   }
 }
 
-//Burger Icon
+/* Burger icon — видимий лише на tablet і менше */
 .icon-menu {
   display: none;
-  @media (max-width: toEm($mobile)) {
+
+  @media (max-width: toEm($tablet)) {
     display: block;
     position: relative;
     width: toRem(30);
     height: toRem(18);
     z-index: 5;
+
     @media (any-hover: none) {
       cursor: default;
     }
+
     span,
     &::before,
     &::after {
       content: "";
-      transition: all 0.3s ease 0s;
+      transition: all 0.3s ease;
       right: 0;
       position: absolute;
       width: 100%;
       height: 2px;
       background-color: #000;
     }
+
     &::before {
       top: 0;
     }
@@ -133,12 +138,11 @@
     span {
       top: calc(50% - 1px);
     }
+
+    // анімація в хрестик
     [data-fls-menu-open] & {
       span {
         width: 0;
-      }
-      &::before,
-      &::after {
       }
       &::before {
         top: calc(50% - 1px);

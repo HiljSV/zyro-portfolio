@@ -1,8 +1,8 @@
 .blockhead {
-  max-width: 500px;
+  @include adaptiveValue("max-width", 500, 280);
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  @include adaptiveValue("gap", 40, 16);
 
   // .blockhead__body-image
 
