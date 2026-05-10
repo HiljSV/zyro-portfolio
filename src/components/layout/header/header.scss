@@ -1,5 +1,58 @@
 .header {
-	// .header__container
-	&__container {
-	}
+  position: fixed;
+  top: 64px;
+  left: 24px;
+  right: 0;
+  z-index: 50;
+
+  @media (min-width: toEm($mobile)) {
+    display: flex;
+    justify-content: center;
+    top: 50px;
+  }
+
+  // .header__container
+
+  &__container {
+    width: 100%;
+  }
+
+  // .header__body
+
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0px 14px 0px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+    @include adaptiveValue("gap", 32, 15);
+    position: relative;
+    @media (min-width: toEm($mobile)) {
+      z-index: 5;
+    }
+  }
+
+  // .header__logo
+
+  &__logo {
+    position: relative;
+    z-index: 5;
+  }
+
+  // .header__link-logo
+
+  &__link-logo {
+    position: relative;
+    z-index: 5;
+  }
 }
