@@ -119,6 +119,18 @@
     }
   }
 
+  // .footer__disclaimer
+  &__disclaimer {
+    @include adaptiveValue("font-size", 14, 11);
+    color: var(--secondary-color);
+    font-style: italic;
+    text-align: right;
+
+    @media (max-width: toEm($mobile)) {
+      text-align: left;
+    }
+  }
+
   // .footer__copy — copyright + credit в одному рядку
   &__copy {
     @include adaptiveValue("font-size", 14, 11);
@@ -149,7 +161,8 @@
     &__slogan,
     &__nav-link,
     &__copy,
-    &__copy-link {
+    &__copy-link,
+    &__disclaimer {
       color: var(--main-color);
     }
   }

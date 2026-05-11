@@ -1,6 +1,47 @@
 {
   "statistics": {
-    "sessions": [],
-    "files": []
+    "sessions": [
+      {
+        "date": "10.05.2026",
+        "start": 1778419970639,
+        "end": 1778419970639
+      },
+      {
+        "date": "10.05.2026",
+        "start": 1778437778351,
+        "end": 1778442008271,
+        "type": "build"
+      },
+      {
+        "date": "10.05.2026",
+        "start": 1778442139101,
+        "end": 1778445257699,
+        "type": "build"
+      },
+      {
+        "date": "11.05.2026",
+        "start": 1778517534707,
+        "end": 1778517534707
+      }
+    ],
+    "files": [
+      "menu.html",
+      "menu.scss",
+      "blockhead.scss",
+      "index.html",
+      "index.scss",
+      "footer.html",
+      "header.scss",
+      "footer.scss",
+      "menu.js",
+      "head.html",
+      "header.js",
+      "variables.css",
+      "hero.html",
+      "gallery.html",
+      "why.html",
+      "index.js",
+      "style.scss"
+    ]
   }
 }
